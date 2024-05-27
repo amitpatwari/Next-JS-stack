@@ -6,8 +6,10 @@ import Result from "../app/Result";
 
 const Home = () => {
   const [result, setResult] = useState(null);
+  const [error, setError] = useState("");
 
   const fetchData = async (name) => {
+    setError("");
     try {
       const ageResponse = await axios.get(`https://api.agify.io?name=${name}`);
       const genderResponse = await axios.get(
@@ -25,6 +27,8 @@ const Home = () => {
       });
     } catch (error) {
       console.error(error);
+      // setError("Failed to fetch data. Please try again later.");
+      setError(error.response.data.error);
     }
   };
 
@@ -33,6 +37,7 @@ const Home = () => {
       <h1>Guess Age, Gender, and Country</h1>
       <NameForm onSubmit={fetchData} />
       {result && <Result data={result} />}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };
