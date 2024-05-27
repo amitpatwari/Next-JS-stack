@@ -27,8 +27,7 @@ const Home = () => {
       });
     } catch (error) {
       console.error(error);
-      // setError("Failed to fetch data. Please try again later.");
-      setError(error.response.data.error);
+      setError("Failed to fetch data. Please try again later.");
     }
   };
 
